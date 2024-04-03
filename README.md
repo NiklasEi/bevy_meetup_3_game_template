@@ -1,11 +1,3 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# Learnings from a Bevy game template
 
-To start the slide show:
-
-- `npm install`
-- `npm run dev`
-- visit http://localhost:3030
-
-Edit the [slides.md](./slides_old) to see the changes.
-
-Learn more about Slidev on [documentations](https://sli.dev/).
+The slides are live at https://bevy3.slides.nikl.me
