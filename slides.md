@@ -35,16 +35,22 @@ theme: dracula
 
 # Extendable
 
-- Embrace Bevy plugins for structure
+- Embrace Bevy plugins for code organisation
 - Add more crates to the workspace
 
 ---
 
-# general structure
+# Project structure
 
-think by domain, not type
-player plugin in own mod, not all systems in one, all resources in another
+> Split by domain, not type
 
+![](modules.png)
+
+---
+
+# Project structure
+
+<img alt="The internal Audio plugin" src="InternalAudioPlugin.png" width="500"/>
 
 ---
 
