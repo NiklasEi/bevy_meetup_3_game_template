@@ -7,18 +7,36 @@ theme: dracula
 
 ---
 
-# A cross-platform setup
+# A third-party starting point for Bevy apps
 
-Game logic in a plugin from the main library
-The main binary is the entry point for Web, Windows, macOS and Linux
-Separate library crate `mobile` for Android and iOS
+- cross-platform
+- extendable
+- CI/CD
+
+![bevy_game_template on GitHub](github_bevy_game_template.png)
+
+---
+
+# Cross-platform setup
+
+- Support for all "official" Bevy platforms
+- Minimal structure with two crates
+- Build files per platform
+
+---
+
+# Extendable
+
+- Embrace Bevy plugins for structure
+- Add more crates to the workspace
+
 ---
 
 # Automation is everything
 
-- little time in game jams => get builds out of the way
-- build pipeline for all target platforms
-
+- Simple CI pipeline
+- Build pipeline for all target platforms
+- Publish pipelines for web, android and iOS
 
 ---
 
