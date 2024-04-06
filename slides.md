@@ -10,8 +10,8 @@ theme: dracula
 # A third-party starting point for Bevy apps
 
 - cross-platform
-- extendable
 - CI/CD
+- extendable
 
 ![bevy_game_template on GitHub](github_bevy_game_template.png)
 
@@ -25,18 +25,18 @@ theme: dracula
 
 ---
 
-# Extendable
-
-- Embrace Bevy plugins for structure
-- Add more crates to the workspace
-
----
-
 # Automation is everything
 
 - Simple CI pipeline
 - Build pipeline for all target platforms
 - Publish pipelines for web, android and iOS
+
+---
+
+# Extendable
+
+- Embrace Bevy plugins for structure
+- Add more crates to the workspace
 
 ---
 
