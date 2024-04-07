@@ -13,7 +13,7 @@ theme: dracula
 - CI/CD
 - extendable
 
-![bevy_game_template on GitHub](github_bevy_game_template.png)
+![bevy_game_template on GitHub](/github_bevy_game_template.png)
 
 ---
 
@@ -44,13 +44,13 @@ theme: dracula
 
 > Split by domain, not type
 
-![](modules.png)
+![Modules in bevy_game_template](/modules.png)
 
 ---
 
 # Project structure
 
-<img alt="The internal Audio plugin" src="InternalAudioPlugin.png" width="500"/>
+<img alt="The internal Audio plugin" src="/InternalAudioPlugin.png" width="500"/>
 
 ---
 
