@@ -60,7 +60,7 @@ impl Plugin for InternalAudioPlugin {
             .add_systems(OnEnter(GameState::Playing), start_audio)
             .add_systems(
                 Update,
-                control_flying_sound
+                control_audio
                     .after(set_movement_actions)
                     .run_if(in_state(GameState::Playing)),
             );
