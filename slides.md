@@ -110,10 +110,42 @@ fn check_loading_assets() { ... }
 
 ---
 
-# Some patterns deserve their own crates
+# Some patterns deserve their own crate
 
-- loading state -> bevy_asset_loader
+Cutting "internal" plugins by domain makes it easy to move them to other crates
 
+![Plugin bevy_asset_loader on GitHub](/bevy_asset_loader_github.png)
+
+---
+
+# bevy_asset_loader
+
+```rust
+impl Plugin for LoadingPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_loading_state(
+            LoadingState::new(GameState::Loading)
+                .continue_to_state(GameState::Menu)
+                .load_collection::<AudioAssets>()
+                .load_collection::<TextureAssets>(),
+        );
+    }
+}
+
+#[derive(AssetCollection, Resource)]
+pub struct AudioAssets {
+    #[asset(path = "audio/flying.ogg")]
+    pub flying: Handle<AudioSource>,
+}
+
+#[derive(AssetCollection, Resource)]
+pub struct TextureAssets {
+    #[asset(path = "textures/bevy.png")]
+    pub bevy: Handle<Image>,
+    #[asset(path = "textures/github.png")]
+    pub github: Handle<Image>,
+}
+```
 
 ---
 
