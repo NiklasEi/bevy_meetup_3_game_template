@@ -42,15 +42,38 @@ theme: dracula
 
 # Project structure
 
-> Split by domain, not type
+Try to cut plugins by domain
 
-![Modules in bevy_game_template](/modules.png)
+<img alt="Modules in bevy_game_template" src="/modules.png" width="450"/>
 
 ---
 
 # Project structure
 
-<img alt="The internal Audio plugin" src="/InternalAudioPlugin.png" width="500"/>
+```rust
+pub struct InternalAudioPlugin;
+
+// This plugin is responsible for controlling the game audio
+impl Plugin for InternalAudioPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_plugins(AudioPlugin)
+            .add_systems(OnEnter(GameState::Playing), start_audio)
+            .add_systems(
+                Update,
+                control_flying_sound
+                    .after(set_movement_actions)
+                    .run_if(in_state(GameState::Playing)),
+            );
+    }
+}
+
+#[derive(Resource)]
+struct FlyingAudio(Handle<AudioInstance>);
+
+fn start_audio(mut commands: Commands, audio_assets: Res<AudioAssets>, audio: Res<Audio>) { ... }
+
+fn control_audio(actions: Res<Actions>, audio: Res<FlyingAudio>, mut instances: ResMut<Assets<AudioInstance>>) { ... }
+```
 
 ---
 
