@@ -77,8 +77,36 @@ fn control_audio(actions: Res<Actions>, audio: Res<FlyingAudio>, mut instances: 
 
 ---
 
-# loading state?
+# Loading state pattern
 
+- Asset loading in Bevy is asynchronous
+- There should be something like a loading screen
+- Bevy States are perfect for this
+
+---
+
+# Loading state pattern
+
+```rust
+pub struct LoadingStatePlugin;
+
+impl Plugin for LoadingStatePlugin {
+    fn build(&self, app: &mut App) {
+        app
+            .add_systems(OnEnter(GameState::Loading), start_asset_loading)
+            .add_systems(Update, check_loading_assets.run_if(in_state(GameState::Loading)));
+    }
+}
+
+#[derive(Resource)]
+struct MyAssets {
+    sprite: Handle<Image>
+}
+
+fn start_asset_loading() { ... }
+
+fn check_loading_assets() { ... }
+```
 
 ---
 
