@@ -21,16 +21,21 @@ theme: dracula
 
 - Support for all "official" Bevy platforms
 - Minimal structure with two crates
-- Build files per platform
+- Platform specific files for packaging
 
 ---
 
-# Automation is everything
+# Automate what you can
 
 - Simple CI pipeline
 - Build pipeline for all target platforms
-- Publish pipelines for web, android and iOS
+- Publish pipelines for web, android[^1] and iOS[^2]
 
+<img class="workflows" alt="Modules in bevy_game_template" src="/workflows.png" width="350"/>
+
+
+[^1]: https://www.nikl.me/blog/2023/github_workflow_to_publish_android_app/
+[^2]: https://www.nikl.me/blog/2023/github_workflow_to_publish_ios_app/
 ---
 
 # Extendable
@@ -48,7 +53,7 @@ Try to cut plugins by domain
 
 ---
 
-# Project structure
+# Project structure - example audio.rs
 
 ```rust
 pub struct InternalAudioPlugin;
@@ -74,38 +79,34 @@ fn start_audio(mut commands: Commands, audio_assets: Res<AudioAssets>, audio: Re
 
 fn control_audio(actions: Res<Actions>, audio: Res<FlyingAudio>, mut instances: ResMut<Assets<AudioInstance>>) { ... }
 ```
-
 ---
 
-# Loading state pattern
-
-- Asset loading in Bevy is asynchronous
-- There should be something like a loading screen
-- Bevy States are perfect for this
-
----
-
-# Loading state pattern
+# Project structure - example (old; Bevy 0.5) loading.rs
 
 ```rust
-pub struct LoadingStatePlugin;
-
-impl Plugin for LoadingStatePlugin {
-    fn build(&self, app: &mut App) {
-        app
-            .add_systems(OnEnter(GameState::Loading), start_asset_loading)
-            .add_systems(Update, check_loading_assets.run_if(in_state(GameState::Loading)));
+pub struct LoadingPlugin;
+impl Plugin for LoadingPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_system_set(SystemSet::on_enter(GameState::Loading).with_system(start_loading.system()))
+           .add_system_set(SystemSet::on_update(GameState::Loading).with_system(check_state.system()));
     }
 }
+struct LoadingState { handles: Vec<HandleUntyped> }
 
-#[derive(Resource)]
-struct MyAssets {
-    sprite: Handle<Image>
+pub struct AudioAssets { pub flying: Handle<AudioSource> }
+pub struct TextureAssets { pub texture_bevy: Handle<Texture> }
+
+fn start_loading(mut commands: Commands, asset_server: Res<AssetServer>) {
+    let handles = vec![asset_server.load_untyped("flying.ogg"), asset_server.load_untyped("sprite.png")];
+    commands.insert_resource(LoadingState { handles });
 }
 
-fn start_asset_loading() { ... }
-
-fn check_loading_assets() { ... }
+fn check_state(mut commands: Commands, mut state: ResMut<State<GameState>>, server: Res<AssetServer>, loading_state: Res<LoadingState>) {
+    if LoadState::Loaded != server.get_group_load_state(loading_state.handles.iter().map(|handle| handle.id)) { return; }
+    commands.insert_resource(AudioAssets { flying: server.get_handle("flying.ogg") });
+    commands.insert_resource(TextureAssets { texture_bevy: server.get_handle("sprite.png") });
+    state.set(GameState::Menu).unwrap();
+}
 ```
 
 ---
