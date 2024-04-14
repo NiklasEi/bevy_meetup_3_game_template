@@ -120,9 +120,10 @@ Cutting "internal" plugins by domain makes it easy to move them to other crates
 
 ---
 
-# bevy_asset_loader
+# Project structure - loading.rs with bevy_asset_loader
 
 ```rust
+pub struct LoadingPlugin;
 impl Plugin for LoadingPlugin {
     fn build(&self, app: &mut App) {
         app.add_loading_state(
@@ -139,7 +140,6 @@ pub struct AudioAssets {
     #[asset(path = "audio/flying.ogg")]
     pub flying: Handle<AudioSource>,
 }
-
 #[derive(AssetCollection, Resource)]
 pub struct TextureAssets {
     #[asset(path = "textures/bevy.png")]
