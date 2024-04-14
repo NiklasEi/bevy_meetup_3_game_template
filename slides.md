@@ -159,6 +159,7 @@ layout: cover
 
 # No console on Windows [^1]
 
+Add the following to your `main.rs` file:
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 ```
