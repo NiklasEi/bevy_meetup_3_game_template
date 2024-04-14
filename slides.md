@@ -20,8 +20,8 @@ theme: dracula
 # Cross-platform setup
 
 - Support for all "official" Bevy platforms
-- Minimal structure with two crates
 - Platform specific files for packaging
+- Minimal structure with two crates
 
 ---
 
@@ -41,7 +41,8 @@ theme: dracula
 # Extendable
 
 - Embrace Bevy plugins for code organisation
-- Add more crates to the workspace
+- It's a workspace; You can add more crates
+- Plugins are organized by domain
 
 ---
 
@@ -149,21 +150,26 @@ pub struct TextureAssets {
 ```
 
 ---
+layout: cover
+---
 
 # cross-platform things in code
 
-* Turn off the windows dev console
-* `build.rs` file for exe icon
-* `window.set_window_icon()` to set the icon in the task bar/window on Windows and Linux
-
-[//]: # (ask to use gnu toolchain so players don't have to install the Microsoft C/C++ Runtime Redistributables?)
-
-
 ---
 
-# excursion: wasm-opt?
+# No console on Windows [^1]
 
+```rust
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+```
 
+[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#disabling-the-windows-console
 ---
 
-# excursion: AAB builds?
+# Icons everywhere
+
+* `build.rs` file for exe icon [^1]
+* `window.set_window_icon()` to set the icon in the task bar/window on Windows and X11 Linux [^2]
+
+[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#setting-the-exe-icon
+[^2]: https://bevy-cheatbook.github.io/window/icon.html
