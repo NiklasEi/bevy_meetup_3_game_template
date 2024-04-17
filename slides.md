@@ -25,6 +25,26 @@ theme: dracula
 
 ---
 
+# No console on Windows [^1]
+
+Add the following to your `main.rs` file:
+```rust
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+```
+
+[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#disabling-the-windows-console
+---
+
+# Icons everywhere
+
+* `build.rs` file for exe icon [^1]
+* `window.set_window_icon()` to set the icon in the task bar/window on Windows and X11 Linux [^2]
+
+[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#setting-the-exe-icon
+[^2]: https://bevy-cheatbook.github.io/window/icon.html
+
+---
+
 # Automate what you can
 
 - Simple CI pipeline
@@ -148,29 +168,3 @@ pub struct TextureAssets {
     pub github: Handle<Image>,
 }
 ```
-
----
-layout: cover
----
-
-# cross-platform things in code
-
----
-
-# No console on Windows [^1]
-
-Add the following to your `main.rs` file:
-```rust
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-```
-
-[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#disabling-the-windows-console
----
-
-# Icons everywhere
-
-* `build.rs` file for exe icon [^1]
-* `window.set_window_icon()` to set the icon in the task bar/window on Windows and X11 Linux [^2]
-
-[^1]: https://bevy-cheatbook.github.io/platforms/windows.html#setting-the-exe-icon
-[^2]: https://bevy-cheatbook.github.io/window/icon.html
